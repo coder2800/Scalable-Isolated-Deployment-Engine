@@ -1,0 +1,15 @@
+{
+  "name": "gitnest",
+  "version": "1.0.0",
+  "description": "1. Firstly create a Node.js server which will be a restful server for resolving paths.\r 2. For each repository deployement, a seperate docker container is created. This helps in creating a seperation of codebases of all the users. Also, this prevents the github repo files from directly coming into source code. (Scalability)\r 3. The files are cloned inside the /home/app/output folder\r 4. Now cd into the folder and run npm install and npm run build\r 5. This creates a /dist folder having static build files.\r 6. Iterate all files in this folder and ignore any folder as on S3 we are uploading only the files.\r 7. Now connect to a S3 client.\r 8. Using a single bucket and all files will have the name -> `__outputs/${PROJECT_ID}/${filePath}`\r 9. Now upload these static files on the S3 bucket.\r 10. Deploy this code on AWS ECR after buiding as a docker image.\r 11. Use of AWS ECS as the container orchestrator -> fargate as the serverless option and EC2 as the managed option. -> containers are actually created in AWS ECS.\r 12. Now stream(upload) the output in AWS S3 bucket.\r 13. Now the containers will stop running to save compute.\r 14. To retrieve the output from S3, use a custom reverse proxy service.\r 15. Naming -> Node.js server -> API server\r     -> Make docker container as the build-server.\r 16. To map the project to a custom domain like `${PROJECT_ID}.localhost.com` -> set up a reverse proxy server. It displays the files in \\_\\_outputs/${PROJECT_ID}. This then sends data to the reverse proxy server which then sends the data back to the localhost.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.1",
+    "http-proxy": "^1.18.1"
+  }
+}
